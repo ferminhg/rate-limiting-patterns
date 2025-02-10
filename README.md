@@ -18,7 +18,7 @@ Parameters:
 
 ## Leaky Bucket
 
-!https://cdn-images-1.medium.com/max/2160/1*UioRG8-qID51i0rEOPVh-w.gif
+![](https://cdn-images-1.medium.com/max/2160/1*UioRG8-qID51i0rEOPVh-w.gif)
 
 **How It Works**: Imagine a bucket with a small hole at the bottom. Requests (water) are added to the bucket and processed at a steady “drip” rate, preventing sudden floods.
 
