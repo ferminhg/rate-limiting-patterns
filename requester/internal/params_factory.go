@@ -18,7 +18,7 @@ func NewParams(numRequests int, host string) *Params {
 
 func NewParamsFromFlags() *Params {
 	numRequests := flag.Int("n", 10, "number of requests to send")
-	host := flag.String("h", "http://localhost:3000", "host to send the requests to")
+	host := flag.String("h", "http://localhost:3010", "host to send the requests to")
 	flag.Parse()
 
 	return NewParams(*numRequests, *host)

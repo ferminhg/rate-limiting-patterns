@@ -31,3 +31,4 @@ Parameters:
 ## Resources
 
 - https://foojay.io/today/rate-limiting-with-redis-an-essential-guide/
+- https://medium.com/@mrandiiw/how-to-set-up-prometheus-grafana-for-golang-app-monitoring-2bd5e5c3d23e

@@ -1,0 +1,62 @@
+services:
+  leaky-bucket:
+    image: leaky-bucket
+    build:
+      context: .
+      dockerfile: leaky-bucket/Dockerfile
+    ports:
+      - "3010:3010"
+    environment:
+      - PORT=3010
+      - RATE_LIMIT=100
+      - BUCKET_CAPACITY=1000
+    networks:
+      - monitoring
+    command: ./server
+    restart: unless-stopped
+
+  prometheus:
+    image: prom/prometheus:v3.1.0
+    container_name: prometheus
+    ports:
+      - 9090:9090
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+    volumes:
+      - ./config/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ./data/prometheus:/prometheus
+    networks:
+      - monitoring
+    restart: unless-stopped
+
+  grafana:
+    image: grafana/grafana-oss:latest
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_PATHS_DATA=/var/lib/grafana
+      - GF_PATHS_LOGS=/var/log/grafana
+      - GF_DATABASE_TYPE=sqlite3
+      - GF_DATABASE_PATH=/var/lib/grafana/grafana.db
+    volumes:
+      - ./data/grafana:/var/lib/grafana
+      - ./logs/grafana:/var/log/grafana
+    networks:
+      - monitoring
+    depends_on:
+      - prometheus
+    restart: unless-stopped
+
+networks:
+  monitoring:
+    driver: bridge
+
+volumes:
+  grafana-storage:
+    driver: local
+  grafana-logs:
+    driver: local
+  prometheus_data:
+    driver: local
