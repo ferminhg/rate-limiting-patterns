@@ -1,0 +1,15 @@
+services:
+  k6:
+    image: grafana/k6:latest
+    container_name: k6
+    volumes:
+      - .:/scripts
+    entrypoint: ["k6", "run", "/scripts/api_test.js"]
+    networks:
+      - monitoring
+    environment:
+      - PROMETHEUS_URL=http://prometheus:9090
+
+networks:
+  monitoring:
+    name: monitoring
