@@ -25,7 +25,7 @@ func TestDefaultValuesNewParamsFromFlags(t *testing.T) {
 	params := NewParamsFromFlags()
 
 	assert.Equal(t, 10, params.NumRequests)
-	assert.Equal(t, "http://localhost:3000", params.Host)
+	assert.Equal(t, "http://localhost:3010", params.Host)
 }
 
 func TestCustomValuesNewParamsFromFlags(t *testing.T) {
