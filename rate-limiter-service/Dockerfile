@@ -9,10 +9,10 @@ WORKDIR "$APP_HOME"
 ENV API_HOST="0.0.0.0"
 ENV API_PORT=3010
 
-COPY leaky-bucket/go.mod leaky-bucket/go.sum ./
+COPY rate-limiter-service/go.mod rate-limiter-service/go.sum ./
 RUN go mod download
 
-COPY leaky-bucket/ ./
+COPY rate-limiter-service/ ./
 
 RUN go env -w GOFLAGS=-buildvcs=false && \
   go env -w CGO_ENABLED=0

@@ -3,6 +3,6 @@ global:
   evaluation_interval: 15s
 
 scrape_configs:
-  - job_name: 'leaky-bucket'
+  - job_name: 'rate-limiter-service'
     static_configs:
-      - targets: ['leaky-bucket:3010']
+      - targets: ['rate-limiter-service:3010']

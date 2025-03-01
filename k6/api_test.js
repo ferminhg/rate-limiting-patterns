@@ -12,12 +12,11 @@ export let options = {
 
 export default function () {
     // success
-    let res = http.get('http://leaky-bucket:3010/');
+    let res = http.get('http://rate-limiter-service:3010/');
     check(res, {
         'status is 200': (r) => r.status === 200,
         'response is Success': (r) => r.body === 'Success',
     });
 
-    // Optional: Add a sleep to simulate user think time
     sleep(1);
 }

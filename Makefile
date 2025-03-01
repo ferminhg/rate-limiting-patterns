@@ -1,4 +1,4 @@
-.PHONY: requester leaky-bucket
+.PHONY: requester rate-limiter-service
 
 requester:
 ifdef n
@@ -10,5 +10,5 @@ endif
 test:
 	@cd requester && go test -v ./...
 
-leaky-bucket:
-	@cd leaky-bucket && go run cmd/server.go
+rate-limiter-service:
+	@cd rate-limiter-service && go run cmd/server.go

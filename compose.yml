@@ -1,9 +1,9 @@
 services:
-  leaky-bucket:
-    image: leaky-bucket
+  rate-limiter-service:
+    image: rate-limiter-service
     build:
       context: .
-      dockerfile: leaky-bucket/Dockerfile
+      dockerfile: rate-limiter-service/Dockerfile
     ports:
       - "3010:3010"
     environment:
@@ -61,7 +61,7 @@ services:
       - PROMETHEUS_URL=http://prometheus:9090
     depends_on:
       - prometheus
-      - leaky-bucket
+      - rate-limiter-service
 
 
 networks:
