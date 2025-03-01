@@ -2,6 +2,7 @@ package infra
 
 import (
 	"leaky-bucket/internal/application/usecases"
+	"leaky-bucket/internal/domain/leakybucket"
 	"log"
 
 	"github.com/gin-gonic/gin"
@@ -9,18 +10,20 @@ import (
 )
 
 type Server struct {
-	host       string
-	port       string
-	engine     *gin.Engine
-	prometheus *PrometheusMetrics
+	host        string
+	port        string
+	engine      *gin.Engine
+	prometheus  *PrometheusMetrics
+	leakyBucket leakybucket.Bucket
 }
 
-func NewServer(host string, port string, prometheus *PrometheusMetrics) *Server {
+func NewServer(host string, port string, prometheus *PrometheusMetrics, leakyBucket leakybucket.Bucket) *Server {
 	return &Server{
-		host:       host,
-		port:       port,
-		engine:     ginEngine(),
-		prometheus: prometheus,
+		host:        host,
+		port:        port,
+		engine:      ginEngine(),
+		prometheus:  prometheus,
+		leakyBucket: leakyBucket,
 	}
 }
 
@@ -45,6 +48,7 @@ func (s *Server) registerEndpoints() {
 	})
 
 	s.engine.GET("/no-limiter", usecases.NewNoRateLimiter().Handler())
+	s.engine.GET("/leaky-bucket", usecases.NewLeakyBucketRateLimiter(s.leakyBucket).Handler())
 }
 
 func ginEngine() *gin.Engine {

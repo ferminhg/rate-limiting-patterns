@@ -53,11 +53,29 @@ curl -X GET http://localhost:3010/no-limiter
 
 **How It Works**: Imagine a bucket with a small hole at the bottom. Requests (water) are added to the bucket and processed at a steady "drip" rate, preventing sudden floods.
 
+```
+curl -X GET http://localhost:3010/leaky-bucket
+```
+
+If you run k6 just running the `makeLeakyBucketRequest` function, run `docker compose up`, you will see the leaky bucket in action on prometheus `http://localhost:3000/`
+
+```
+export default function () {
+    // makeNoLimiterRequest();
+    makeLeakyBucketRequest();
+}
+```
+
+![alt text](doc/images/leaky-bucket-prometheus.png)
+
 **Use Cases:** Ideal for smoothing traffic flow, such as in streaming services or payment processing, where a predictable output is critical.
 
 **Example:** A video streaming platform regulates API calls to its content delivery network, ensuring consistent playback quality.
 
 **Drawback:** Not suitable for handling sudden bursts, like flash sales or promotional campaigns.
+
+TODO:
+- [ ] Implement fixed window leaky bucket
 
 ## 📚 Resources
 
