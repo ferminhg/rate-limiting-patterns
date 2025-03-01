@@ -1,6 +1,7 @@
 package infra
 
 import (
+	"leaky-bucket/internal/application/usecases"
 	"log"
 
 	"github.com/gin-gonic/gin"
@@ -40,8 +41,10 @@ func (s *Server) registerEndpoints() {
 	s.engine.GET("/metrics", gin.WrapH(promhttp.Handler()))
 
 	s.engine.GET("/", func(c *gin.Context) {
-		c.JSON(200, gin.H{"message": "🍮"})
+		c.JSON(200, gin.H{"message": "👽 Rate Limiter Service"})
 	})
+
+	s.engine.GET("/no-limiter", usecases.NewNoRateLimiter().Handler())
 }
 
 func ginEngine() *gin.Engine {

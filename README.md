@@ -35,6 +35,18 @@ Parameters:
 - `-n`: number of requests to send
 - `-h`: host to send the requests to
 
+## No rate limitter implemented
+
+**How It Works**: No rate limiter is implemented.
+
+```
+curl -X GET http://localhost:3010/no-limiter
+```
+
+**Example**: A simple HTTP server that does not implement any rate limiter.
+
+
+
 ## 💧 Leaky Bucket
 
 ![](https://cdn-images-1.medium.com/max/2160/1*UioRG8-qID51i0rEOPVh-w.gif)
